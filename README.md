@@ -40,6 +40,31 @@ vosk                0.3.42
 
 下载vosk的中文[model](https://alphacephei.com/vosk/models)并解压于根目录model文件夹下，参考模型为[vosk-model-cn-0.22](https://alphacephei.com/vosk/models/vosk-model-cn-0.22.zip)
 
+## 输入输出
+
+在根目录下执行python main.py -h 查看命令行参数说明
+
+```bash
+usage: main.py [-h] [-g GAME] [-t TYPE] [-s SIMULATIONS]
+
+Free_Python_Game & Open_Spiel & Speech_Recognition
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -g GAME, --game GAME  game name: Tictactoe, Go, Y, Hex, Havannah
+  -t TYPE, --type TYPE  mouse or voice
+  -s SIMULATIONS, --simulations SIMULATIONS
+                        How many iterations of MCTS to perform
+```
+
+使用-g 指定游戏名称，使用-t 指定输入类型（mouse或voice），使用-s 指定蒙特卡洛迭代次数
+
+三个参数均为可选，-g 默认为Tictactoe，-t 默认为mouse，-s 默认为 1000
+
+例如 python main.py -g=Go 即可启动Go游戏
+
+游戏中均为ai先手，第一步可能需要等待一段时间
+
 ## 功能介绍
 
 ### 命令行参数解析

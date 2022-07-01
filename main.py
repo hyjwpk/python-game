@@ -9,7 +9,8 @@ from Havannah import Havannah
 def main():
     parser = argparse.ArgumentParser(
         description="Free_Python_Game & Open_Spiel & Speech_Recognition")
-    parser.add_argument('-g', '--game', default='Tictactoe', help='game name')
+    parser.add_argument('-g', '--game', default='Tictactoe',
+                        help='game name: Tictactoe, Go, Y, Hex, Havannah')
     parser.add_argument('-t', '--type', default='mouse', help='mouse or voice')
     parser.add_argument('-s', '--simulations', default=1000,
                         help='How many iterations of MCTS to perform')
