@@ -8,7 +8,7 @@ PB20111699  吴骏东
 
 ## 项目介绍
 
-借鉴[Free Python Games](https://github.com/grantjenks/free-python-games)使用turtle构建游戏界面，使用开源[open_spiel](https://github.com/deepmind/open_spiel)平台的游戏AI，加入[speech_recognition](https://github.com/Uberi/speech_recognition)的语音识别辅助游戏输入，支持[Tictactoe](https://en.wikipedia.org/wiki/Tic-tac-toe) [Go](https://en.wikipedia.org/wiki/Go_(game)) [Y](https://en.wikipedia.org/wiki/Y_(game)) [Hex](https://en.wikipedia.org/wiki/Hex_(board_game)) [Havannah](https://en.wikipedia.org/wiki/Havannah)五种游戏
+借鉴[Free Python Games](https://github.com/grantjenks/free-python-games)使用turtle构建游戏界面，使用开源[open_spiel](https://github.com/deepmind/open_spiel)平台的游戏AI，加入[speech_recognition](https://github.com/Uberi/speech_recognition)的语音识别辅助游戏输入，支持[Tictactoe](https://en.wikipedia.org/wiki/Tic-tac-toe) [Go](https://en.wikipedia.org/wiki/Go_(game)) [Y](https://en.wikipedia.org/wiki/Y_(game)) [Hex](https://en.wikipedia.org/wiki/Hex_(board_game)) [Havannah](https://en.wikipedia.org/wiki/Havannah)五种游戏；以及对[Free Python Games](https://github.com/grantjenks/free-python-games)中的paint与snake进行拓展
 
 ## 环境配置
 
@@ -59,7 +59,7 @@ optional arguments:
 
 使用-g 指定游戏名称，使用-t 指定输入类型（mouse或voice），使用-s 指定蒙特卡洛迭代次数
 
-三个参数均为可选，-g 默认为Tictactoe，-t 默认为mouse，-s 默认为 1000
+在关于open_speil五个游戏中，三个参数均为可选，-g 默认为Tictactoe，-t 默认为mouse，-s 默认为 1000；另外两个游戏只可支持第一个参数
 
 例如 python main.py -g=Go 即可启动Go游戏
 
@@ -798,7 +798,7 @@ class Game():
 
 ### 游戏类
 
-以下五个游戏类的基类为Game，采用turtle库实现游戏界面，在基类的基础上根据不同的游戏设定了窗体大小，增加了grid、draw_black、draw_white、floor、draw、show、tap、_state、players、arr成员，它们的作用如下
+以下前五个游戏类的基类为Game，采用turtle库实现游戏界面，在基类的基础上根据不同的游戏设定了窗体大小，增加了grid、draw_black、draw_white、floor、draw、show、tap、_state、players、arr成员，它们的作用如下
 
 - grid 绘制游戏棋盘
 - draw_black、draw_white 绘制游戏双方的棋子
@@ -808,6 +808,8 @@ class Game():
 - _state 存储当前游戏方信息
 - players 用于棋子绘制
 - arr 保存当前盘面信息，防止在同一处再次落子
+
+后两个小游戏是基于freegame库中的游戏拓展功能实现的
 
 #### Tictactoe
 
@@ -1367,5 +1369,267 @@ class Havannah(Game):
 
 if __name__ == "__main__":
     Havannah()
+```
+
+#### paint
+
+该程序通过键盘来控制颜色、形状、是否填充：K、W、G、B、R分别代表颜色黑、白、绿、蓝、红；l、s、c、r、t分别代表形状线段、正方形、圆、长方形、三角形；f代表所化封闭图形需要填充；F则代表不用填充。
+
+圆形、长方形、三角形与填充选项为拓展。
+
+- 圆形：通过图上鼠标点击的两点得到半径，第二个点为圆心而得到目标的图形。
+- 长方形：通过图上鼠标点击的两点得到目标图形的对角的两个点，进行绘制。
+- 三角形：通过图上鼠标点击的三个点得到目标图形的三个顶点。 
+![paint.png](image/paint.png)
+
+```python
+import turtle
+import math
+from freegames import vector
+
+
+def line(start, middle, end):
+    """Draw line from start to end."""
+
+    turtle.goto(end.x, end.y)
+
+
+def square(start, middle, end):
+    """Draw square from start to end."""
+    for count in range(4):
+        turtle.forward(end.x - start.x)
+        turtle.left(90)
+
+
+def circle(start, middle, end):
+    """Draw circle from start to end."""
+    r = ((end.x - start.x)**2 + (end.y - start.y)**2)**0.5
+    angle = math.atan2(end.x - start.x, end.y - start.y)
+    angle = int(angle * 180/math.pi)
+    turtle.right(angle)
+    turtle.circle(r)
+    turtle.left(angle)
+    pass  # TODO
+
+
+def rectangle(start, middle, end):
+    """Draw rectangle from start to end."""
+
+    turtle.forward(end.x - start.x)
+    turtle.left(90)
+    turtle.forward(end.y - start.y)
+    turtle.left(90)
+    turtle.forward(end.x - start.x)
+    turtle.left(90)
+    turtle.forward(end.y - start.y)
+    turtle.left(90)
+    pass  # TODO
+
+
+def triangle(start, middle, end):
+    """Draw triangle from start to end."""
+    turtle.goto(middle.x, middle.y)
+    turtle.goto(end.x, end.y)
+    turtle.goto(start.x, start.y)
+    pass  # TODO
+
+
+def tap(x, y):
+    """Store starting point or draw shape."""
+    start = state['start']
+    middle = state['middle']
+    shape = state['shape']
+
+    if state['shape'] != triangle:
+        if start is None:
+            state['start'] = vector(x, y)
+        else:
+            shape = state['shape']
+            end = vector(x, y)
+            draw_shape(start, middle, end)
+            state['start'] = None
+    else:
+        if start is None:
+            state['start'] = vector(x, y)
+        elif middle is None:
+            state['middle'] = vector(x, y)
+        else:
+            shape = state['shape']
+            end = vector(x, y)
+            draw_shape(start, middle, end)
+            state['start'] = None
+            state['middle'] = None
+            
+def draw_shape(start, middle, end):
+    turtle.up()
+    turtle.goto(start.x, start.y)
+    turtle.down()
+    shape = state['shape']
+    if state['fill'] == 'yes':
+    	turtle.begin_fill()
+
+    shape(start, middle, end)
+    
+    if state['fill'] == 'yes':
+    	turtle.end_fill()
+
+def store(key, value):
+    """Store value in state at key."""
+    state[key] = value
+
+def main():
+    #state = {'start': None, 'middle': None, 'shape': line, 'fill': 'no'}
+    turtle.setup(420, 420, 370, 0)
+    turtle.onscreenclick(tap)
+    turtle.listen()
+    turtle.onkey(turtle.undo, 'u')
+    turtle.onkey(lambda: turtle.color('black'), 'K')
+    turtle.onkey(lambda: turtle.color('white'), 'W')
+    turtle.onkey(lambda: turtle.color('green'), 'G')
+    turtle.onkey(lambda: turtle.color('blue'), 'B')
+    turtle.onkey(lambda: turtle.color('red'), 'R')
+    turtle.onkey(lambda: store('shape', line), 'l')
+    turtle.onkey(lambda: store('shape', square), 's')
+    turtle.onkey(lambda: store('shape', circle), 'c')
+    turtle.onkey(lambda: store('shape', rectangle), 'r')
+    turtle.onkey(lambda: store('shape', triangle), 't')
+    turtle.onkey(lambda: store('fill', 'yes'), 'f')
+    turtle.onkey(lambda: store('fill', 'no'), 'F')
+    turtle.done()
+    
+state = {'start': None, 'middle': None, 'shape': line, 'fill': 'no'}
+
+if __name__ == '__main__':
+
+    main()
+```
+
+
+
+#### snake
+
+该游戏为贪吃蛇，基于源程序拓展了以下功能：
+
+- 当蛇头碰到一边的边界后会从另一个边界出来，即蛇不会因碰到边界而游戏失败。
+- 蛇只可以转向它前进方向的左边和右边，即按动与前进方向相反的方向键后，蛇不会死亡且不改变移动方向。
+- 蛇在死亡后可以按'r'键原地复活，但身体长度回到初始；按'q'，直接退出游戏。
+![snake1.png](image/snake1.png)
+![snake2.png](image/snake2.png)
+![snake3.png](image/snake3.png)
+
+```python
+from random import randrange
+from turtle import *
+import sys
+
+from freegames import square, vector
+
+food = vector(0, 0)
+snake = [vector(10, 0)]
+aim = vector(0, -10)
+turnning = 0
+
+
+def change(x, y):
+    """Change snake direction."""
+    global turnning
+    if turnning == 1:
+        return
+    turnning = 1
+    if x != 0 and aim.x != 0 and x + aim.x == 0:
+        turnning = 0
+        return
+    elif y != 0 and aim.y != 0 and y + aim.y == 0:
+        turnning = 0
+        return
+    aim.x = x
+    aim.y = y
+    turnning = 0
+
+
+def inside(head):
+    """Return True if head inside boundaries."""
+    if head.x <= -200:
+        head.x = 190
+    elif head.x >= 190:
+        head.x = -200
+    elif head.y <= -200:
+        head.y = 190
+    elif head.y >= 190:
+        head.y = -200
+    return -200 <= head.x <= 190 and -200 <= head.y <= 190
+
+
+def direction(key):
+    if aim.x != -10 and key == 'Right':
+        change(10, 0)
+    if aim.x != 10 and key == 'Left':
+        change(-10, 0)
+    if aim.y != -10 and key == 'Up':
+        change(0, 10)
+    if aim.y != 10 and key == 'Down':
+        change(0, -10)
+
+
+def move():
+    """Move snake forward one segment."""
+    head = snake[-1].copy()
+    head.move(aim)
+
+    if not inside(head) or head in snake:
+        square(head.x, head.y, 9, 'red')
+        update()
+        ontimer(restart(), 150)
+        return
+
+
+    snake.append(head)
+    if head == food:
+        print('Snake:', len(snake))
+        food.x = randrange(-15, 15) * 10
+        food.y = randrange(-15, 15) * 10
+    else:
+        snake.pop(0)
+
+    clear()
+
+    for body in snake:
+        square(body.x, body.y, 9, 'black')
+
+    square(food.x, food.y, 9, 'green')
+    update()
+    ontimer(move, 100)
+
+
+def restart():
+    print('tape r to restart;tape q to exit')
+    listen()
+    onkey(main, 'r')
+    onkey(exit, 'q')
+
+
+def exit():
+    sys.exit()
+
+def main():
+    global turnning 
+    turnnong = 0
+    setup(420, 420, 370, 0)
+    if len(snake) > 1:
+        for body in range(len(snake) -1):
+            snake.pop(0)
+    reset()
+    hideturtle()
+    tracer(False)
+    listen()
+    onkey(lambda: change(10, 0), 'Right')
+    onkey(lambda: change(-10, 0), 'Left')
+    onkey(lambda: change(0, 10), 'Up')
+    onkey(lambda: change(0, -10), 'Down')
+    move()
+    done()
+
+if __name__ == '__main__':
+    main()
 ```
 
