@@ -91,7 +91,7 @@ flowchart
 
 #### 环境配置
 
-Ubuntu 20.04.4 LTS
+项目在Windows11和 Ubuntu 20.04.4 LTS 上测试通过
 
 conda 4.13.0
 
@@ -99,7 +99,48 @@ conda 4.13.0
 
 执行`conda activate openspiel`激活环境
 
+##### open_spiel
+
+###### Ubuntu 20.04.4 LTS
+
 执行`pip install open_spiel`安装open_spiel
+
+执行`pip install tensorflow  ` 安装open_spiel所需库
+
+参考版本如下
+
+open-spiel                   1.0.2
+
+tensorflow                   2.9.1
+
+###### Windows11
+
+从github上clone项目，具体操作如下
+
+```bash
+cd C:\Users\MyUser
+git clone https://github.com/deepmind/open_spiel.git
+cd open_spiel
+git clone -b smart_holder --single-branch --depth 1 https://github.com/pybind/pybind11.git pybind11
+git clone -b 20211102.0 --single-branch --depth 1 https://github.com/abseil/abseil-cpp.git open_spiel\abseil-cpp
+git clone -b develop --single-branch --depth 1 https://github.com/jblespiau/dds.git open_spiel\games\bridge\double_dummy_solver
+```
+
+使用CMake 根据 C:\Users\MyUser\open_spiel\open_spiel\CMakeLists.txt编译整个项目，可以从官网安装CMake或使用Visual Studio打开CMake项目进行编译，将编译得到的pyspiel库放置于python环境的site-packages下，并把C:\Users\MyUser\open_spiel\open_spiel\python复制到site-packages下
+
+执行`pip install absl-py attrs numpy tensorflow`  安装open_spiel所需库
+
+参考版本如下
+
+absl-py                      1.1.0
+
+attrs                        21.4.0
+
+numpy                        1.23.0
+
+tensorflow                   2.9.1
+
+##### speech-recognition
 
 从github clone [speech_recognition](https://github.com/Uberi/speech_recognition)项目
 
@@ -111,19 +152,54 @@ conda 4.13.0
 
 参考版本如下
 
-open-spiel                   1.0.2
-
 PyAudio             0.2.11
 
 vosk                0.3.42
 
-执行`pip install tensorflow  ` 安装open_spiel所需库
+下载vosk的中文[model](https://alphacephei.com/vosk/models)并解压于根目录model文件夹下，参考模型为[vosk-model-cn-0.22](https://alphacephei.com/vosk/models/vosk-model-cn-0.22.zip)
+
+目录结构为
+
+```bash
+├── model
+│   ├── am
+│   │   └── final.mdl
+│   ├── conf
+│   │   ├── mfcc.conf
+│   │   └── model.conf
+│   ├── graph
+│   │   ├── HCLG.fst
+│   │   ├── phones
+│   │   │   └── word_boundary.int
+│   │   └── words.txt
+│   ├── ivector
+│   │   ├── final.dubm
+│   │   ├── final.ie
+│   │   ├── final.mat
+│   │   ├── global_cmvn.stats
+│   │   ├── online_cmvn.conf
+│   │   └── splice.conf
+│   ├── README
+│   ├── rescore
+│   │   ├── G.carpa
+│   │   └── G.fst
+│   └── rnnlm
+│       ├── feat_embedding.final.mat
+│       ├── features.txt
+│       ├── final.raw
+│       ├── oov.txt
+│       ├── special_symbol_opts.conf
+│       ├── special_symbol_opts.txt
+│       └── word_feats.txt
+```
+
+##### freegames
+
+执行`pip install freegames`安装open_spiel
 
 参考版本如下
 
-tensorflow                   2.9.1
-
-下载vosk的中文[model](https://alphacephei.com/vosk/models)并解压于根目录model文件夹下，参考模型为[vosk-model-cn-0.22](https://alphacephei.com/vosk/models/vosk-model-cn-0.22.zip)
+freegames                    2.4.0
 
 #### 输入输出
 
