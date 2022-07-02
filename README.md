@@ -6,11 +6,90 @@ PB20111696  王琛
 PB20111697  王骥扬
 PB20111699  吴骏东
 
-## 项目介绍
+## 项目摘要
 
-借鉴[Free Python Games](https://github.com/grantjenks/free-python-games)使用turtle构建游戏界面，使用开源[open_spiel](https://github.com/deepmind/open_spiel)平台的游戏AI，加入[speech_recognition](https://github.com/Uberi/speech_recognition)的语音识别辅助游戏输入，支持[Tictactoe](https://en.wikipedia.org/wiki/Tic-tac-toe) [Go](https://en.wikipedia.org/wiki/Go_(game)) [Y](https://en.wikipedia.org/wiki/Y_(game)) [Hex](https://en.wikipedia.org/wiki/Hex_(board_game)) [Havannah](https://en.wikipedia.org/wiki/Havannah)五种游戏；以及对[Free Python Games](https://github.com/grantjenks/free-python-games)中的paint与snake进行拓展
+本项目借鉴[Free Python Games](https://github.com/grantjenks/free-python-games)使用turtle构建游戏界面，使用开源[open_spiel](https://github.com/deepmind/open_spiel)平台的游戏AI，加入[speech_recognition](https://github.com/Uberi/speech_recognition)的语音识别辅助游戏输入，支持[Tictactoe](https://en.wikipedia.org/wiki/Tic-tac-toe) [Go](https://en.wikipedia.org/wiki/Go_(game)) [Y](https://en.wikipedia.org/wiki/Y_(game)) [Hex](https://en.wikipedia.org/wiki/Hex_(board_game)) [Havannah](https://en.wikipedia.org/wiki/Havannah)五种游戏，并对[Free Python Games](https://github.com/grantjenks/free-python-games)中的paint与snake进行拓展
 
-## 环境配置
+## 项目简介
+
+OpenSpiel 是用于研究游戏中的强化学习和搜索/规划的环境和算法的集合。OpenSpiel 支持多种类型的游戏，在人数上包括单人与多人，在策略上支持零和、合作和一般和、在规则上支持一次性游戏和顺序游戏、在行动上支持严格轮流和同时行动、在信息上支持完美和不完美信息博弈。OpenSpiel 还包括分析学习动态和其他常见评估指标的工具。
+
+Speech recognition 是一个Python的语音识别模块，支持多种语音线上、线下的语音识别模型。采用不同的语音识别模型，可以使用这些语音模型提供的特性，例如根据语法识别、识别特定关键字、识别首选短语，支持多种语言、方言。
+
+Free Python Games 是一个 Apache2 许可的免费 Python 游戏集合，用于教育和娱乐。这些游戏是用简单的 Python 代码编写的，专为实验和更改而设计。包括几个经典街机游戏的简化版本。标准库有一个名为 Turtle 的模块，这是一种向孩子们介绍编程的流行方式。Free Python Games中的所有游戏都是使用 Python 及其 Turtle 模块实现的。可以在任何可以安装 Python 的地方运行，包括运行 Windows、Mac OS 或 Linux 的台式计算机以及较旧或低功耗的硬件。
+
+对于教育目的而言，本项目拓展了Free Python Games，增添了新的策略游戏，规则易懂，同时加入了OpenSpiel的游戏ai，使游戏具有可玩性，有助于学者在学习游戏制作的基础上进一步学习基于游戏背景的强化学习、搜索、最优化、估值算法，同时加入了语音识别模块，方便不适用于鼠标操控的场景。
+
+对于研究目的而言，OpenSpiel 包含当前主流的强化学习算法，与时俱进，Speech recognition 是支持线上的语音识别模型，具有很强的可拓展性。本项目提供的简单图形界面易于实现，便于算法的实际测试与使用，具有实用性。
+
+项目的技术难度主要在于实现一个统一的接口封装图形化界面、ai与语音识别，在避免复杂逻辑的情况下减少三者的耦合，从而使得项目易于学习与拓展。
+
+## 项目内容
+
+### 项目目标
+
+实现OpenSpiel、Speech recognition、Free Python Games的协同工作。实现一个统一的接口封装图形化界面、ai与语音识别。
+
+### 基本原理与模型
+
+项目的图形化界面使用python的turtle库实现。为实现OpenSpiel、Speech recognition、Free Python Games的协同工作，构建了一个基类`Game()`，在基类中实现ai的初始化，以及游戏的进行的函数。项目中的ai使用蒙特卡洛算法对游戏的状态空间进行搜索，只需将ai的初始化函数`init_bot(self, bot_type, game, simulations=1000)`修改即可实现模型的替换。
+
+具体的游戏通过继承父类`Game()`实现，在子类中使用turtle库构建图形化界面，通过`turtle.onscreenclick()`增加游戏对于鼠标点击的响应，在触发的函数中调用OpenSpiel，获得ai的行动。若不需要ai，只需将触发函数中的ai调用删去即可。
+
+语音识别通过在OpenSpiel的人类bot中，在输入部分调用语音模块实现。
+
+### 总体架构设计流程
+
+```mermaid
+classDiagram
+Game <|-- Example
+
+Game : __init__(self, name, show, type='mouse', simulations=1000)
+Game : init_bot(self, bot_type, game, simulations=1000)
+Game : init_game(self)
+Game : play_game(self, position=None)
+
+Example : _state
+Example : players
+Example : arr
+Example : __init__()
+Example : grid()
+Example : draw_black()
+Example : draw_white()
+Example : draw()
+Example : show()
+Example : tap()
+```
+
+
+
+```mermaid
+flowchart
+    A[解析命令行参数] --> B[初始化游戏界面]
+    B --> C[初始化ai]
+    C --> D[添加鼠标触发函数]
+    D --> E[等待鼠标点击事件]
+    E --> F[ai响应]
+    F --> G[游戏结束]
+    F --> E
+    
+```
+
+```mermaid
+flowchart
+    A[解析命令行参数] --> B[初始化游戏界面]
+    B --> C[初始化ai]
+    C --> D[等待语音输入]
+    D --> E[ai响应]
+    E --> F[游戏结束]
+    E --> D
+```
+
+
+
+### 项目具体实现
+
+#### 环境配置
 
 Ubuntu 20.04.4 LTS
 
@@ -38,9 +117,15 @@ PyAudio             0.2.11
 
 vosk                0.3.42
 
+执行`pip install tensorflow  ` 安装open_spiel所需库
+
+参考版本如下
+
+tensorflow                   2.9.1
+
 下载vosk的中文[model](https://alphacephei.com/vosk/models)并解压于根目录model文件夹下，参考模型为[vosk-model-cn-0.22](https://alphacephei.com/vosk/models/vosk-model-cn-0.22.zip)
 
-## 输入输出
+#### 输入输出
 
 在根目录下执行python main.py -h 查看命令行参数说明
 
@@ -65,9 +150,9 @@ optional arguments:
 
 游戏中均为ai先手，第一步可能需要等待一段时间
 
-## 功能介绍
+#### 功能介绍
 
-### 命令行参数解析
+##### 命令行参数解析
 
 使用argparse实现命令行参数的解析，可用的命令行参数有游戏名称（['Tictactoe', 'Go', 'Y', 'Hex', 'Havannah']）、输入方式（鼠标或语音）、蒙特卡洛算法迭代次数（次数越高ai水平越高，消耗时间随迭代次数线性增长）
 
@@ -108,7 +193,7 @@ if __name__ == '__main__':
     main()
 ```
 
-### 蒙特卡洛算法（开源）
+##### 蒙特卡洛算法（开源）
 
 ```python
 # Copyright 2019 DeepMind Technologies Ltd. All rights reserved.
@@ -556,7 +641,7 @@ class MCTSBot(pyspiel.Bot):
     return root
 ```
 
-### 人类bot
+人类bot
 
 这部分为open_spiel所用的人类bot，修改了其中输入的部分，使其可以响应鼠标和语音输入。若选择鼠标输入，当鼠标点击时主动向bot传递参数。若选择语音输入，让bot向语音输入发出请求
 
@@ -662,7 +747,7 @@ class HumanBot(pyspiel.Bot):
         pass
 ```
 
-### 语音输入
+##### 语音输入
 
 调用speech_recognition实现语音输入，选用的模型为中文模型，对得到的模型输出进行字符串解析转化为数字并传递给bot，在结果不符合要求时bot会再次请求语音输入
 
@@ -721,7 +806,7 @@ def recognition():
         print("Vosk error; {0}".format(e))
 ```
 
-### Game类的实现
+##### Game类的实现
 
 Game类是五种游戏的基类，通过调用open_spiel库实现了游戏状态与游戏ai的初始化，游戏的进行与结果的判断
 
@@ -796,7 +881,7 @@ class Game():
             print("Overall returns", overall_returns)
 ```
 
-### 游戏类
+##### 游戏类
 
 以下前五个游戏类的基类为Game，采用turtle库实现游戏界面，在基类的基础上根据不同的游戏设定了窗体大小，增加了grid、draw_black、draw_white、floor、draw、show、tap、_state、players、arr成员，它们的作用如下
 
@@ -811,7 +896,7 @@ class Game():
 
 后两个小游戏是基于freegame库中的游戏拓展功能实现的
 
-#### Tictactoe
+###### Tictactoe
 
 井字棋由两名玩家轮流在 3×3 棋盘中标记空格为X或O。成功将三个标记放置在水平、垂直或对角线中的玩家为获胜者。
 
@@ -904,7 +989,7 @@ if __name__ == "__main__":
     Tictactoe()
 ```
 
-#### Go
+###### Go
 
 围棋使用矩形格状棋盘及黑白二色圆形棋子进行对弈，正规棋盘上有纵横各19条线段，361个交叉点，棋子必须走在空格非禁着点的交叉点上，双方交替行棋，落子后不能移动或悔棋，以目数多者为胜。
 
@@ -1019,7 +1104,7 @@ if __name__ == "__main__":
     Go()
 ```
 
-#### Y
+###### Y
 
 规则如下：
 
@@ -1134,7 +1219,7 @@ if __name__ == "__main__":
     Y()
 ```
 
-#### Hex
+###### Hex
 
 它传统上在 11×11菱形板上进行。每个玩家都被分配了一对相对的棋盘面，他们必须轮流将一块与他们颜色相同的棋子放在任何空白处，以尝试将它们连接起来。一旦放置，石头就无法移动或移除。当玩家通过一连串相邻的棋子成功地将相对的棋盘面连接在一起时获胜。由于游戏板的拓扑结构，在 Hex 中无法进行平局。
 
@@ -1246,7 +1331,7 @@ if __name__ == "__main__":
     Hex()
 ```
 
-#### Havannah
+###### Havannah
 
 规则如下：
 
@@ -1371,15 +1456,18 @@ if __name__ == "__main__":
     Havannah()
 ```
 
-#### paint
+###### paint
 
 该程序通过键盘来控制颜色、形状、是否填充：K、W、G、B、R分别代表颜色黑、白、绿、蓝、红；l、s、c、r、t分别代表形状线段、正方形、圆、长方形、三角形；f代表所化封闭图形需要填充；F则代表不用填充。
 
 圆形、长方形、三角形与填充选项为拓展。
 
 - 圆形：通过图上鼠标点击的两点得到半径，第二个点为圆心而得到目标的图形。
+
 - 长方形：通过图上鼠标点击的两点得到目标图形的对角的两个点，进行绘制。
+
 - 三角形：通过图上鼠标点击的三个点得到目标图形的三个顶点。 
+
 ![paint.png](image/paint.png)
 
 ```python
@@ -1504,17 +1592,18 @@ if __name__ == '__main__':
     main()
 ```
 
-
-
-#### snake
+###### snake
 
 该游戏为贪吃蛇，基于源程序拓展了以下功能：
 
 - 当蛇头碰到一边的边界后会从另一个边界出来，即蛇不会因碰到边界而游戏失败。
 - 蛇只可以转向它前进方向的左边和右边，即按动与前进方向相反的方向键后，蛇不会死亡且不改变移动方向。
 - 蛇在死亡后可以按'r'键原地复活，但身体长度回到初始；按'q'，直接退出游戏。
+
 ![snake1.png](image/snake1.png)
+
 ![snake2.png](image/snake2.png)
+
 ![snake3.png](image/snake3.png)
 
 ```python
@@ -1632,4 +1721,8 @@ def main():
 if __name__ == '__main__':
     main()
 ```
+
+## 总结与展望
+
+本项目实现了一个统一的接口封装图形化界面、ai与语音识别，在避免复杂逻辑的情况下减少三者的耦合，从而使得项目易于学习与拓展。项目中作为例子实现了open_spiel的蒙特卡罗算法调用，Tictactoe, Go, Y, Hex, Havannah五个双人策略游戏，对Free Python Games中的paint与snake进行拓展，基于线下Vosk的语音识别。未来基于现有的接口可以方便的引入其它的强化学习、搜索、最优化、估值算法，补充支持的游戏，增加语音识别api。
 
