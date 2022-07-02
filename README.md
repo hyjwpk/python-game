@@ -136,7 +136,7 @@ Free_Python_Game & Open_Spiel & Speech_Recognition
 
 optional arguments:
   -h, --help            show this help message and exit
-  -g GAME, --game GAME  game name: Tictactoe, Go, Y, Hex, Havannah
+  -g GAME, --game GAME  game name: Tictactoe、Go、Y、Hex、Havannah、snake、paint
   -t TYPE, --type TYPE  mouse or voice
   -s SIMULATIONS, --simulations SIMULATIONS
                         How many iterations of MCTS to perform
@@ -641,7 +641,7 @@ class MCTSBot(pyspiel.Bot):
     return root
 ```
 
-人类bot
+##### 人类bot
 
 这部分为open_spiel所用的人类bot，修改了其中输入的部分，使其可以响应鼠标和语音输入。若选择鼠标输入，当鼠标点击时主动向bot传递参数。若选择语音输入，让bot向语音输入发出请求
 
@@ -698,7 +698,7 @@ class HumanBot(pyspiel.Bot):
         super().__init__()
         self.type = type
 
-    def step_with_policy(self, state, str):
+    def step_with_policy(self, state, _str):
         """Returns the stochastic policy and selected action in the given state."""
         legal_actions = state.legal_actions(state.current_player())
         if not legal_actions:
@@ -712,10 +712,16 @@ class HumanBot(pyspiel.Bot):
         }
 
         while True:
-            print("Choose an action (empty to print legal actions): ")
+            print("Choose an action: ")
             if self.type == 'mouse':
-                action_str = str
+                action_str = _str
             else:
+                print("Legal actions(s):")
+                longest_num = max(len(str(action)) for action in legal_actions)
+                _print_columns([
+                    "{}: {}".format(str(action).rjust(longest_num), action_str)
+                    for action_str, action in sorted(action_map.items())
+                ])
                 action_str = recognition()
             if not action_str:
                 print("Legal actions(s):")
@@ -751,15 +757,26 @@ class HumanBot(pyspiel.Bot):
 
 调用speech_recognition实现语音输入，选用的模型为中文模型，对得到的模型输出进行字符串解析转化为数字并传递给bot，在结果不符合要求时bot会再次请求语音输入
 
+在选择语音输入时，每一步会提示合法的下一步对应的数字，例如在Tictactoe中
+
+```bash
+Choose an action (empty to print legal actions): 
+Legal actions(s):
+  0: o(0,0)    2: o(0,2)    5: o(1,2)    7: o(2,1)  
+  1: o(0,1)    3: o(1,0)    6: o(2,0)    8: o(2,2)
+```
+
+用中文读出对应的数字即可完成输入，例如 一、十、二十、三十一、一百、二百零三、三百一十、三百二十四
+
 ```python
 import speech_recognition as sr
 
 
 def find(target):
-    list = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十']
+    list = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十']
     for index, value in enumerate(list):
         if value == target:
-            return index + 1
+            return index
     return None
 
 

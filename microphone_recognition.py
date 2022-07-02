@@ -2,10 +2,10 @@ import speech_recognition as sr
 
 
 def find(target):
-    list = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十']
+    list = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十']
     for index, value in enumerate(list):
         if value == target:
-            return index + 1
+            return index
     return None
 
 

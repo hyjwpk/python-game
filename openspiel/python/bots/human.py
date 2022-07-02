@@ -50,7 +50,7 @@ class HumanBot(pyspiel.Bot):
         super().__init__()
         self.type = type
 
-    def step_with_policy(self, state, str):
+    def step_with_policy(self, state, _str):
         """Returns the stochastic policy and selected action in the given state."""
         legal_actions = state.legal_actions(state.current_player())
         if not legal_actions:
@@ -64,10 +64,16 @@ class HumanBot(pyspiel.Bot):
         }
 
         while True:
-            print("Choose an action (empty to print legal actions): ")
+            print("Choose an action: ")
             if self.type == 'mouse':
-                action_str = str
+                action_str = _str
             else:
+                print("Legal actions(s):")
+                longest_num = max(len(str(action)) for action in legal_actions)
+                _print_columns([
+                    "{}: {}".format(str(action).rjust(longest_num), action_str)
+                    for action_str, action in sorted(action_map.items())
+                ])
                 action_str = recognition()
             if not action_str:
                 print("Legal actions(s):")
