@@ -22,7 +22,9 @@ import math
 import os
 
 import pyspiel
-from microphone_recognition import recognition
+import sys, os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__)))))
+from speechrecognition.microphone_recognition import recognition
 
 _MAX_WIDTH = int(os.getenv("COLUMNS", 80))  # Get your TTY width.
 

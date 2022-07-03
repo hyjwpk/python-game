@@ -1,5 +1,7 @@
 # 大作业
 
+[Toc]
+
 ## 小组成员
 
 PB20111696  王琛
@@ -8,15 +10,15 @@ PB20111699  吴骏东
 
 ## 项目摘要
 
-本项目借鉴[Free Python Games](https://github.com/grantjenks/free-python-games)使用turtle构建游戏界面，使用开源[open_spiel](https://github.com/deepmind/open_spiel)平台的游戏AI，加入[speech_recognition](https://github.com/Uberi/speech_recognition)的语音识别辅助游戏输入，支持[Tictactoe](https://en.wikipedia.org/wiki/Tic-tac-toe) [Go](https://en.wikipedia.org/wiki/Go_(game)) [Y](https://en.wikipedia.org/wiki/Y_(game)) [Hex](https://en.wikipedia.org/wiki/Hex_(board_game)) [Havannah](https://en.wikipedia.org/wiki/Havannah)五种游戏，并对[Free Python Games](https://github.com/grantjenks/free-python-games)中的paint与snake进行拓展，同时对原 Free Python Games 中大部分的游戏进行了升级处理。完成了相对统一与独立的游戏封装，提高了可扩展性与可移植性。
+本项目借鉴[Free Python Games](https://github.com/grantjenks/free-python-games)使用turtle构建游戏界面，使用开源[open_spiel](https://github.com/deepmind/open_spiel)平台的游戏AI，加入[speech_recognition](https://github.com/Uberi/speech_recognition)的语音识别辅助游戏输入，支持[Tictactoe](https://en.wikipedia.org/wiki/Tic-tac-toe) [Go](https://en.wikipedia.org/wiki/Go_(game)) [Y](https://en.wikipedia.org/wiki/Y_(game)) [Hex](https://en.wikipedia.org/wiki/Hex_(board_game)) [Havannah](https://en.wikipedia.org/wiki/Havannah)五种游戏，并对[Free Python Games](https://github.com/grantjenks/free-python-games)中的paint与snake进行拓展，同时对原 Free Python Games 中大部分的游戏进行了升级处理。完成了相对统一与独立的游戏封装，提高了可扩展性与可移植性。在Windows11和 Ubuntu 20.04.4 LTS 上测试通过。
 
 ## 项目简介
 
-OpenSpiel 是用于研究游戏中的强化学习和搜索/规划的环境和算法的集合。OpenSpiel 支持多种类型的游戏，在人数上包括单人与多人，在策略上支持零和、合作和一般和、在规则上支持一次性游戏和顺序游戏、在行动上支持严格轮流和同时行动、在信息上支持完美和不完美信息博弈。OpenSpiel 还包括分析学习动态和其他常见评估指标的工具。
+> OpenSpiel 是用于研究游戏中的强化学习和搜索/规划的环境和算法的集合。OpenSpiel 支持多种类型的游戏，在人数上包括单人与多人，在策略上支持零和、合作和一般和、在规则上支持一次性游戏和顺序游戏、在行动上支持严格轮流和同时行动、在信息上支持完美和不完美信息博弈。OpenSpiel 还包括分析学习动态和其他常见评估指标的工具。
 
-Speech recognition 是一个Python的语音识别模块，支持多种语音线上、线下的语音识别模型。采用不同的语音识别模型，可以使用这些语音模型提供的特性，例如根据语法识别、识别特定关键字、识别首选短语，支持多种语言、方言。
+> Speech recognition 是一个Python的语音识别模块，支持多种语音线上、线下的语音识别模型。采用不同的语音识别模型，可以使用这些语音模型提供的特性，例如根据语法识别、识别特定关键字、识别首选短语，支持多种语言、方言。
 
-Free Python Games 是一个 Apache2 许可的免费 Python 游戏集合，用于教育和娱乐。这些游戏是用简单的 Python 代码编写的，专为实验和更改而设计。包括几个经典街机游戏的简化版本。标准库有一个名为 Turtle 的模块，这是一种向孩子们介绍编程的流行方式。Free Python Games中的所有游戏都是使用 Python 及其 Turtle 模块实现的。可以在任何可以安装 Python 的地方运行，包括运行 Windows、Mac OS 或 Linux 的台式计算机以及较旧或低功耗的硬件。
+> Free Python Games 是一个 Apache2 许可的免费 Python 游戏集合，用于教育和娱乐。这些游戏是用简单的 Python 代码编写的，专为实验和更改而设计。包括几个经典街机游戏的简化版本。标准库有一个名为 Turtle 的模块，这是一种向孩子们介绍编程的流行方式。Free Python Games中的所有游戏都是使用 Python 及其 Turtle 模块实现的。可以在任何可以安装 Python 的地方运行，包括运行 Windows、Mac OS 或 Linux 的台式计算机以及较旧或低功耗的硬件。
 
 对于教育目的而言，本项目拓展了Free Python Games，增添了新的策略游戏，规则易懂，同时加入了OpenSpiel的游戏ai，使游戏具有可玩性，有助于学者在学习游戏制作的基础上进一步学习基于游戏背景的强化学习、搜索、最优化、估值算法，同时加入了语音识别模块，方便不适用于鼠标操控的场景。
 
@@ -107,11 +109,11 @@ conda 4.13.0
 
 执行`pip install tensorflow  ` 安装open_spiel所需库
 
-参考版本如下
-
-open-spiel                   1.0.2
-
-tensorflow                   2.9.1
+> 参考版本如下
+>
+> open-spiel                   1.0.2
+>
+> tensorflow                   2.9.1
 
 ###### Windows11
 
@@ -130,15 +132,15 @@ git clone -b develop --single-branch --depth 1 https://github.com/jblespiau/dds.
 
 执行`pip install absl-py attrs numpy tensorflow`  安装open_spiel所需库
 
-参考版本如下
-
-absl-py                      1.1.0
-
-attrs                        21.4.0
-
-numpy                        1.23.0
-
-tensorflow                   2.9.1
+> 参考版本如下
+>
+> absl-py                      1.1.0
+>
+> attrs                        21.4.0
+>
+> numpy                        1.23.0
+>
+> tensorflow                   2.9.1
 
 ##### speech-recognition
 
@@ -150,47 +152,47 @@ tensorflow                   2.9.1
 
 执行`pip install PyAudio Vosk ` 安装speech-recognition所需库
 
-参考版本如下
-
-PyAudio             0.2.11
-
-vosk                0.3.42
+> 参考版本如下
+>
+> PyAudio             0.2.11
+>
+> vosk                0.3.42
 
 下载vosk的中文[model](https://alphacephei.com/vosk/models)并解压于根目录model文件夹下，参考模型为[vosk-model-cn-0.22](https://alphacephei.com/vosk/models/vosk-model-cn-0.22.zip)
 
-目录结构为
+> model文件夹目录结构为
+>
+> ├── model
+> │   ├── am
+> │   │   └── final.mdl
+> │   ├── conf
+> │   │   ├── mfcc.conf
+> │   │   └── model.conf
+> │   ├── graph
+> │   │   ├── HCLG.fst
+> │   │   ├── phones
+> │   │   │   └── word_boundary.int
+> │   │   └── words.txt
+> │   ├── ivector
+> │   │   ├── final.dubm
+> │   │   ├── final.ie
+> │   │   ├── final.mat
+> │   │   ├── global_cmvn.stats
+> │   │   ├── online_cmvn.conf
+> │   │   └── splice.conf
+> │   ├── README
+> │   ├── rescore
+> │   │   ├── G.carpa
+> │   │   └── G.fst
+> │   └── rnnlm
+> │       ├── feat_embedding.final.mat
+> │       ├── features.txt
+> │       ├── final.raw
+> │       ├── oov.txt
+> │       ├── special_symbol_opts.conf
+> │       ├── special_symbol_opts.txt
+> │       └── word_feats.txt
 
-```bash
-├── model
-│   ├── am
-│   │   └── final.mdl
-│   ├── conf
-│   │   ├── mfcc.conf
-│   │   └── model.conf
-│   ├── graph
-│   │   ├── HCLG.fst
-│   │   ├── phones
-│   │   │   └── word_boundary.int
-│   │   └── words.txt
-│   ├── ivector
-│   │   ├── final.dubm
-│   │   ├── final.ie
-│   │   ├── final.mat
-│   │   ├── global_cmvn.stats
-│   │   ├── online_cmvn.conf
-│   │   └── splice.conf
-│   ├── README
-│   ├── rescore
-│   │   ├── G.carpa
-│   │   └── G.fst
-│   └── rnnlm
-│       ├── feat_embedding.final.mat
-│       ├── features.txt
-│       ├── final.raw
-│       ├── oov.txt
-│       ├── special_symbol_opts.conf
-│       ├── special_symbol_opts.txt
-│       └── word_feats.txt
 ```
 
 ##### freegames
@@ -212,7 +214,10 @@ Free_Python_Game & Open_Spiel & Speech_Recognition
 
 optional arguments:
   -h, --help            show this help message and exit
-  -g GAME, --game GAME  game name: Tictactoe、Go、Y、Hex、Havannah、snake、paint
+  -g GAME, --game GAME  game name: Tictactoe、Go、Y、Hex、Havannah、snake、paint、Ant
+                        、Bagles、Boom、Bounce、Cannon、Connect、Crypto、Fidget、Flapp
+                        y、Guess、Life、Madlibs、Maze、Memory、Minesweeper、Pacman、Pa
+                        int、Pong、Rps_game、Simonsays、Snake、Tictactoe、Tiles、Tron
   -t TYPE, --type TYPE  mouse or voice
   -s SIMULATIONS, --simulations SIMULATIONS
                         How many iterations of MCTS to perform
@@ -220,7 +225,7 @@ optional arguments:
 
 使用-g 指定游戏名称，使用-t 指定输入类型（mouse或voice），使用-s 指定蒙特卡洛迭代次数
 
-在关于open_speil五个游戏中，三个参数均为可选，-g 默认为Tictactoe，-t 默认为mouse，-s 默认为 1000；另外两个游戏只可支持第一个参数
+在关于open_speil五个游戏中，三个参数均为可选，-g 默认为Tictactoe，-t 默认为mouse，-s 默认为 1000；其余游戏只可支持第一个参数
 
 例如 python main.py -g=Go 即可启动Go游戏
 
@@ -234,25 +239,58 @@ optional arguments:
 
 ```python
 import argparse
-from Tictactoe import Tictactoe
-from Go import Go
-from Y import Y
-from Hex import Hex
-from Havannah import Havannah
+from openspiel.game.Tictactoe import Tictactoe
+from openspiel.game.Go import Go
+from openspiel.game.Y import Y
+from openspiel.game.Hex import Hex
+from openspiel.game.Havannah import Havannah
+import freegames_extern.snake
+import freegames_extern.paint
+import os
 
+path = os.path.abspath('.') + '/freegames'
+
+freegameslist = [
+    'Ant',
+    'Bagles',
+    'Boom',
+    'Bounce',
+    'Cannon',
+    'Connect',
+    'Crypto',
+    'Fidget',
+    'Flappy',
+    'Guess',
+    'Life',
+    'Madlibs',
+    'Maze',
+    'Memory',
+    'Minesweeper',
+    'Pacman',
+    'Paint',
+    'Pong',
+    'Rps_game',
+    'Simonsays',
+    'Snake',
+    'Tictactoe',
+    'Tiles',
+    'Tron',
+]
 
 def main():
+    gamename = 'game name: Tictactoe、Go、Y、Hex、Havannah、snake、paint'
+    for game in freegameslist:
+        gamename = gamename + '、' + game
+        
     parser = argparse.ArgumentParser(
         description="Free_Python_Game & Open_Spiel & Speech_Recognition")
-    parser.add_argument('-g', '--game', default='Tictactoe', help='game name')
+    parser.add_argument('-g', '--game', default='Tictactoe', help=gamename)
     parser.add_argument('-t', '--type', default='mouse', help='mouse or voice')
     parser.add_argument('-s', '--simulations', default=1000,
                         help='How many iterations of MCTS to perform')
     args = parser.parse_args()
-    game_list = ['Tictactoe', 'Go', 'Y', 'Hex', 'Havannah']
-    if not args.game in game_list:
-        print(game_list)
-        exit(-1)
+    # game_list = ['Tictactoe', 'Go', 'Y', 'Hex', 'Havannah', 'snake', 'paint']
+    
     if args.game == 'Tictactoe':
         Tictactoe(args.type, int(args.simulations))
     elif args.game == 'Go':
@@ -263,7 +301,13 @@ def main():
         Hex(args.type, int(args.simulations))
     elif args.game == 'Havannah':
         Havannah(args.type, int(args.simulations))
-
+    elif args.game == 'snake':
+        freegames_extern.snake.main()
+    elif args.game == 'paint':
+        freegames_extern.paint.main()
+    elif args.game in freegameslist:
+        name = '/' + str(args.game).lower() + '.py'
+        os.system('python ' + path + name)
 
 if __name__ == '__main__':
     main()
@@ -746,7 +790,9 @@ import math
 import os
 
 import pyspiel
-from microphone_recognition import recognition
+import sys, os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__)))))
+from speechrecognition.microphone_recognition import recognition
 
 _MAX_WIDTH = int(os.getenv("COLUMNS", 80))  # Get your TTY width.
 
@@ -910,8 +956,10 @@ from __future__ import print_function
 
 import numpy as np
 
-from openspiel.python.algorithms import mcts
-from openspiel.python.bots import human
+import sys, os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__)))))
+from openspiel.algorithms import mcts
+from openspiel.bots import human
 import pyspiel
 
 
@@ -978,14 +1026,14 @@ class Game():
 
 以下前五个游戏类的基类为Game，采用turtle库实现游戏界面，在基类的基础上根据不同的游戏设定了窗体大小，增加了grid、draw_black、draw_white、floor、draw、show、tap、_state、players、arr成员，它们的作用如下
 
-- grid 绘制游戏棋盘
-- draw_black、draw_white 绘制游戏双方的棋子
-- floor 对鼠标点击的坐标进行取整
-- draw 绘制棋子
-- tap 响应鼠标点击
-- _state 存储当前游戏方信息
-- players 用于棋子绘制
-- arr 保存当前盘面信息，防止在同一处再次落子
+> - grid 绘制游戏棋盘
+> - draw_black、draw_white 绘制游戏双方的棋子
+> - floor 对鼠标点击的坐标进行取整
+> - draw 绘制棋子
+> - tap 响应鼠标点击
+> - _state 存储当前游戏方信息
+> - players 用于棋子绘制
+> - arr 保存当前盘面信息，防止在同一处再次落子
 
 后两个小游戏是基于freegame库中的游戏拓展功能实现的
 
@@ -997,6 +1045,8 @@ class Game():
 
 ```python
 import turtle
+import sys, os
+sys.path.append(os.path.dirname(os.path.realpath(__file__)))
 from Game import Game
 
 
@@ -1090,6 +1140,8 @@ if __name__ == "__main__":
 
 ```python
 import turtle
+import sys, os
+sys.path.append(os.path.dirname(os.path.realpath(__file__)))
 from Game import Game
 
 
@@ -1208,6 +1260,8 @@ if __name__ == "__main__":
 
 ```python
 import turtle
+import sys, os
+sys.path.append(os.path.dirname(os.path.realpath(__file__)))
 from Game import Game
 
 
@@ -1320,6 +1374,8 @@ if __name__ == "__main__":
 
 ```python
 import turtle
+import sys, os
+sys.path.append(os.path.dirname(os.path.realpath(__file__)))
 from Game import Game
 
 
@@ -1443,6 +1499,8 @@ if __name__ == "__main__":
 
 ```python
 import turtle
+import sys, os
+sys.path.append(os.path.dirname(os.path.realpath(__file__)))
 from Game import Game
 
 
@@ -1548,6 +1606,10 @@ class Havannah(Game):
 if __name__ == "__main__":
     Havannah()
 ```
+
+##### Free Python Games
+
+项目对原 Free Python Games 中大部分的游戏进行了升级处理，并对Free Python Games中的paint与snake进行拓展
 
 ###### paint
 
@@ -1817,5 +1879,5 @@ if __name__ == '__main__':
 
 ## 总结与展望
 
-本项目实现了一个统一的接口封装图形化界面、ai与语音识别，在避免复杂逻辑的情况下减少三者的耦合，从而使得项目易于学习与拓展。项目中作为例子实现了open_spiel的蒙特卡罗算法调用，Tictactoe, Go, Y, Hex, Havannah五个双人策略游戏，对Free Python Games中的paint与snake进行拓展，基于线下Vosk的语音识别。未来基于现有的接口可以方便的引入其它的强化学习、搜索、最优化、估值算法，补充支持的游戏，增加语音识别api。
+本项目实现了一个统一的接口封装图形化界面、ai与语音识别，在避免复杂逻辑的情况下减少三者的耦合，从而使得项目易于学习与拓展。项目中作为例子实现了open_spiel的蒙特卡罗算法调用，Tictactoe, Go, Y, Hex, Havannah五个双人策略游戏，对Free Python Games中的paint与snake进行拓展，对原 Free Python Games 中大部分的游戏进行了升级处理，基于线下Vosk的语音识别。未来基于现有的接口可以方便的引入其它的强化学习、搜索、最优化、估值算法，补充支持的游戏，增加语音识别api。项目在Windows11和 Ubuntu 20.04.4 LTS 上测试通过，具有较高的可扩展性与可移植性。
 

@@ -1,16 +1,16 @@
 import argparse
-from Tictactoe import Tictactoe
-from Go import Go
-from Y import Y
-from Hex import Hex
-from Havannah import Havannah
-import snake
-import paint
-
+from openspiel.game.Tictactoe import Tictactoe
+from openspiel.game.Go import Go
+from openspiel.game.Y import Y
+from openspiel.game.Hex import Hex
+from openspiel.game.Havannah import Havannah
+import freegames_extern.snake
+import freegames_extern.paint
 import os
-path = os.path.abspath('.') + '/source'
 
-gamelist = [
+path = os.path.abspath('.') + '/freegames'
+
+freegameslist = [
     'Ant',
     'Bagles',
     'Boom',
@@ -39,7 +39,7 @@ gamelist = [
 
 def main():
     gamename = 'game name: Tictactoe、Go、Y、Hex、Havannah、snake、paint'
-    for game in gamelist:
+    for game in freegameslist:
         gamename = gamename + '、' + game
         
     parser = argparse.ArgumentParser(
@@ -62,11 +62,11 @@ def main():
     elif args.game == 'Havannah':
         Havannah(args.type, int(args.simulations))
     elif args.game == 'snake':
-        snake.main()
+        freegames_extern.snake.main()
     elif args.game == 'paint':
-        paint.main()
-    elif args.game in gamelist:
-        name = '/' + args.game + '.py'
+        freegames_extern.paint.main()
+    elif args.game in freegameslist:
+        name = '/' + str(args.game).lower() + '.py'
         os.system('python ' + path + name)
 
 if __name__ == '__main__':

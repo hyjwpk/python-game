@@ -4,8 +4,10 @@ from __future__ import print_function
 
 import numpy as np
 
-from openspiel.python.algorithms import mcts
-from openspiel.python.bots import human
+import sys, os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__)))))
+from openspiel.algorithms import mcts
+from openspiel.bots import human
 import pyspiel
 
 
