@@ -7,6 +7,36 @@ from Havannah import Havannah
 import snake
 import paint
 
+import os
+path = os.path.abspath('.')
+
+gamelist = [
+    'Ant',
+    'Bagles',
+    'Boom',
+    'Bounce',
+    'Cannon',
+    'Connect',
+    'Crypto',
+    'Fidget',
+    'Flappy',
+    'Guess',
+    'Life',
+    'Madlibs',
+    'Maze',
+    'Memory',
+    'Minesweeper',
+    'Pacman',
+    'Paint',
+    'Pong',
+    'Rps_game',
+    'Simonsays',
+    'Snake',
+    'Tictactoe',
+    'Tiles',
+    'Tron',
+]
+
 def main():
     parser = argparse.ArgumentParser(
         description="Free_Python_Game & Open_Spiel & Speech_Recognition")
@@ -33,7 +63,9 @@ def main():
         snake.main()
     elif args.game == 'paint':
         paint.main()
-
+    elif args.game in gamelist:
+        name = '/' + args.game + '.py'
+        os.system('python ' + path + name)
 
 if __name__ == '__main__':
     main()
