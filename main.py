@@ -8,7 +8,7 @@ import snake
 import paint
 
 import os
-path = os.path.abspath('.')
+path = os.path.abspath('.') + '/source'
 
 gamelist = [
     'Ant',
@@ -38,17 +38,19 @@ gamelist = [
 ]
 
 def main():
+    gamename = 'game name: Tictactoe、Go、Y、Hex、Havannah、snake、paint'
+    for game in gamelist:
+        gamename = gamename + '、' + game
+        
     parser = argparse.ArgumentParser(
         description="Free_Python_Game & Open_Spiel & Speech_Recognition")
-    parser.add_argument('-g', '--game', default='Tictactoe', help='game name: Tictactoe、Go、Y、Hex、Havannah、snake、paint')
+    parser.add_argument('-g', '--game', default='Tictactoe', help=gamename)
     parser.add_argument('-t', '--type', default='mouse', help='mouse or voice')
     parser.add_argument('-s', '--simulations', default=1000,
                         help='How many iterations of MCTS to perform')
     args = parser.parse_args()
-    game_list = ['Tictactoe', 'Go', 'Y', 'Hex', 'Havannah', 'snake', 'paint']
-    if not args.game in game_list:
-        print(game_list)
-        exit(-1)
+    # game_list = ['Tictactoe', 'Go', 'Y', 'Hex', 'Havannah', 'snake', 'paint']
+    
     if args.game == 'Tictactoe':
         Tictactoe(args.type, int(args.simulations))
     elif args.game == 'Go':
