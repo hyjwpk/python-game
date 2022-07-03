@@ -193,11 +193,9 @@ git clone -b develop --single-branch --depth 1 https://github.com/jblespiau/dds.
 > │       ├── special_symbol_opts.txt
 > │       └── word_feats.txt
 
-```
-
 ##### freegames
 
-执行`pip install freegames`安装open_spiel
+执行`pip install freegames`安装freegames
 
 参考版本如下
 
